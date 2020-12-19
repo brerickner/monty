@@ -39,4 +39,6 @@ typedef struct instruction_s
 } instruction_t;
 
 
+void nop(stack_t **stack, unsigned int line_number);
+
 #endif /* MONTY_H */
