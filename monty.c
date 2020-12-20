@@ -6,7 +6,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "monty.h"
-	
+
 int main(int argc, char **argv)
 {
 	FILE *file;
@@ -19,10 +19,12 @@ int main(int argc, char **argv)
 	char opFind[BUFFER] = {0};
 	unsigned int numFind;
 	char newLine = 0;
+
 	instruction_t ops[] = {
 		{"nop", nop},
 		{"\0", NULL}
 		};
+
 	/*if no file given or more than one arg given */
 	if (argc != 2)
 	{
@@ -36,38 +38,39 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can't open file %s\n", theFile);
 		exit(EXIT_FAILURE);
 	}
-	
+
  /*tokenizer*/
     while(fscanf(file, "%s %u", opFind , &numFind) != EOF)
     {
-        newLine = getc(file);
-        while (newLine != EOF)
-        {
-            if (newLine == '\n')
-            {
-                lineCount += lineCount;
-            }
-            newLine = getc(file);
-        }
-    printf("number of lines: %d\n", lineCount - 1);
-    printf("%s %d\n", opFind, numFind);
-	for (i = 0; ops[i].opcode; i++)
-	{
-		if (strcmp(ops[i].opcode, opFind) == 0)
-		{
-			(ops[i].f(stack, 3));
-			/*break;*/
-		}
-		
-		else
-		{
-			fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
-			exit(EXIT_FAILURE);
-		}
-	}
+	    newLine = getc(file);
+	    while (newLine != EOF)
+	    {
+		    if (newLine == '\n')
+		    {
+			    lineCount += lineCount;
+		    }
+		    newLine = getc(file);
+	    }
+	    printf("number of lines: %d\n", lineCount);
+
+
+	    printf("%s %d\n", opFind, numFind);
+	    for (i = 0; ops[i].opcode; i++)
+	    {
+		    if (strcmp(ops[i].opcode, opFind) == 0)
+		    {
+			    (ops[i].f(stack, 3));
+			    /*break;*/
+		    }
+		    else
+		    {
+			    fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
+			    exit(EXIT_FAILURE);
+		    }
+	    }
     } /*mystery bracket*/
-	free(line);
-	fclose(file);
-	exit(EXIT_SUCCESS);
-	return (0);
+    free(line);
+    fclose(file);
+    exit(EXIT_SUCCESS);
+    return (0);
 }
