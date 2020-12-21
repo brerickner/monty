@@ -50,6 +50,7 @@ typedef struct exttokens
 {
       int numFind;
       char opFind;
+      FILE *file;
 } global_t;
 extern global_t exttokens;
 global_t exttokens;
