@@ -32,6 +32,7 @@ void getfunc(char *opcode, stack_t **stack, unsigned int line_number)
                 if (monty_instructions[i].opcode == NULL)
                 {
                         fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
+                        free_stack(stack);
                         exit(EXIT_FAILURE);
                 }
         }
