@@ -8,14 +8,15 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t newNode, temp;
+	stack_t *newNode, *temp;
 
 	newNode = malloc(sizeof(stack_t));
 /*malloc check*/
 	if (newNode == NULL)
 		exit(EXIT_FAILURE);
-/*if no number for argument*/
-	if (exttokens.numFind == NULL)
+	newNode->n = exttokens.numFind;
+	/*if no number for argument*/
+	if (!exttokens.numFind)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
@@ -26,7 +27,7 @@ void push(stack_t **stack, unsigned int line_number)
 	newNode->prev = *stack;
 	newNode->next = temp;
 	if (temp != NULL)
-		temp->prev = NewNode;
+		temp->prev = newNode;
 	(*stack)->next = newNode;
 }
 /**
@@ -38,7 +39,7 @@ void push(stack_t **stack, unsigned int line_number)
  */
 void pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t temp;
+	stack_t *temp;
 	(void)line_number;
 
 	for (temp = (*stack)->next; temp != NULL; temp = temp->next)
