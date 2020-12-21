@@ -38,7 +38,7 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-
+stack_t *getfunc(char *opcode, stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */
