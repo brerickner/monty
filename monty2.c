@@ -5,7 +5,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include "play.h"
+#include "monty.h"
+
 stack_t *getfunc(char *opcode, stack_t **stack, unsigned int line_number)
 {
         unsigned int i;
