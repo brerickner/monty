@@ -12,7 +12,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *lastnode;
 	(void)line_number;
 
-	/* printf("got to push\n"); */
+	printf("got to push\n");
 
 	newnode = malloc(sizeof(stack_t));
 
