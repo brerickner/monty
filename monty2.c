@@ -49,8 +49,8 @@ int main(int argc, char **argv)
         /*tokenizer variables*/
         char opFind[5] = {0};
 	unsigned int numFind;
-        char newLine = 0;
         stack_t *stack = NULL;
+
         /*if no file given or more than one arg given */
         if (argc != 2)
         {
@@ -66,24 +66,22 @@ int main(int argc, char **argv)
         }
         exttokens.file = file;
 	/*tokenizer*/
-	while(fscanf(file, "%s %u", opFind , &numFind) != EOF)
+	while (fscanf(file, "%s", opFind) != EOF)
 	{
-
-                for (newLine = getc(file); newLine != EOF; newLine = getc(file));
-	        {
-		        if (newLine == '\n')
-			lineCount++;
-	        }
+                if (strcmp(opFind, "push") == 0)
+                {
+                        fscanf(file, "%u", &numFind);
+                        exttokens.numFind = numFind;
+                        push(&stack, lineCount);
+                }
 		/* printf("number of lines: %d\n", lineCount); */
 		/* printf("%s %d\n", opFind, numFind); */
-
-                exttokens.numFind = numFind;
                 getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
-        free(file);
+/*      free(file); */
 /*	free(opFind);*/
 	fclose(file);
-        /* printf("end of program\n"); */
+        printf("end of program\n");
 	exit(EXIT_SUCCESS);
 	return (0);
 }
