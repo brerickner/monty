@@ -8,28 +8,40 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *newNode, *temp;
+	stack_t *newnode;
+	stack_t *lastnode;
+	(void)line_number;
 
-	newNode = malloc(sizeof(stack_t));
-/*malloc check*/
-	if (newNode == NULL)
-		exit(EXIT_FAILURE);
-	newNode->n = exttokens.numFind;
-	/*if no number for argument*/
-	if (!exttokens.numFind)
+	/* printf("got to push\n"); */
+
+	newnode = malloc(sizeof(stack_t));
+
+	if (newnode == NULL)
+		/* printf("malloc failed in push\n"); */
+		return;
+
+	lastnode = (*stack);
+
+	newnode->next = NULL;
+	newnode->n = exttokens.numFind;
+
+	if ((*stack) == NULL)
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
+		newnode->prev = NULL;
+		(*stack) = newnode;
+		/* printf("stack is NULL in push\n"); */
+		return;
 	}
-/*store list in temp node*/
-	temp = (*stack)->next;
-/*add newNode to stack*/
-	newNode->prev = *stack;
-	newNode->next = temp;
-	if (temp != NULL)
-		temp->prev = newNode;
-	(*stack)->next = newNode;
+
+	while (lastnode->next != NULL)
+		lastnode = lastnode->next;
+
+	lastnode->next = newnode;
+	newnode->prev = lastnode;
 }
+
+
+
 /**
  * pall - stack_t **stack, unsigned int line_number
  * @stack: pointer to head of doubly linked list
@@ -42,9 +54,16 @@ void pall(stack_t **stack, unsigned int line_number)
 	stack_t *temp;
 	(void)line_number;
 
+	/* printf("got to pall"); */
+	if (*(stack) == NULL)
+		return;
+
 	for (temp = (*stack)->next; temp != NULL; temp = temp->next)
-		printf("%d\n", temp->n);
+		;
+	for (temp = (*stack); temp != NULL; temp = temp->prev)
+		printf("%d", temp->n);
 }
+
 /**
  * pint - stack_t **stack, unsigned int line_number
  * @stack: pointer to head of doubly linked list
@@ -72,5 +91,5 @@ void nop(stack_t **stack, unsigned int line_number)
 {
 	(void)line_number;
 	(void)stack;
-	printf("testing nop func \n ");
+	/* printf("testing nop func \n "); */
 }

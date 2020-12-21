@@ -7,35 +7,38 @@
 #include <fcntl.h>
 #include "monty.h"
 
-void getfunc(char *opcode, stack_t **stack, unsigned int line_number)
+void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 {
-        unsigned int i;
-/*	instruction_t *x = malloc(sizeof(instruction_t)); */
+	unsigned int i;
+	/* instruction_t *x = malloc(sizeof(instruction_t)); */
 	instruction_t monty_instructions[] = {
-                {"nop", nop},
-                {"push", push},
-                {"pall", pall},
-                {"pint", pint},
-                {"\0", NULL}
-        };
-/*	if (x == NULL)
-	return (NULL); */
-/*	x = monty_instructions; */
-/*valgrind errors line 17, 19, 33, 50, 72 */
-        for (i = 0; monty_instructions[i].opcode != NULL; i++)
+	{"pint", pint},
+	{"push", push},
+	{"nop", nop},
+	{"pall", pall},
+	{NULL, NULL}
+	};
+/*
+* if (x == NULL)
+* return (NULL);
+* x = monty_instructions;
+* valgrind errors line 17, 19, 33, 50, 72
+*/
+        for (i = 0; monty_instructions[i].f != NULL; i++)
         {
-		if (*(monty_instructions[i]).opcode == *opcode)
+		if (strcmp(opFind, monty_instructions[i].opcode) == 0)
 		{
-                        printf("match found\n");
+                        /* printf("match found\n"); */
+                        /* printf("%s\n", opFind); */
 			monty_instructions[i].f(stack, line_number);
-                }
-                if (monty_instructions[i].opcode == NULL)
-                {
-                        fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
-                        free_stack(stack);
-                        exit(EXIT_FAILURE);
+                        return;
                 }
         }
+                fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
+                free_stack(stack);
+                /* printf("made it past freeing stack when match not found\n"); */
+                free(exttokens.file);
+                exit(EXIT_FAILURE);
 }
 int main(int argc, char **argv)
 {
@@ -61,6 +64,7 @@ int main(int argc, char **argv)
                 fprintf(stderr, "Error: Can't open file %s\n", theFile);
                 exit(EXIT_FAILURE);
         }
+        exttokens.file = file;
 	/*tokenizer*/
 	while(fscanf(file, "%s %u", opFind , &numFind) != EOF)
 	{
@@ -70,14 +74,16 @@ int main(int argc, char **argv)
 		        if (newLine == '\n')
 			lineCount++;
 	        }
-		printf("number of lines: %d\n", lineCount);
-		printf("%s %d\n", opFind, numFind);
+		/* printf("number of lines: %d\n", lineCount); */
+		/* printf("%s %d\n", opFind, numFind); */
+
+                exttokens.numFind = numFind;
+                getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
-        exttokens.numFind = numFind;
-	getfunc(opFind, &stack, lineCount);
-/*	free(file);*/
+        free(file);
 /*	free(opFind);*/
 	fclose(file);
+        /* printf("end of program\n"); */
 	exit(EXIT_SUCCESS);
 	return (0);
 }
