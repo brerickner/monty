@@ -7,12 +7,15 @@
 #include <fcntl.h>
 #include "monty.h"
 
-stack_t *getfunc(char *opcode, stack_t **stack, unsigned int line_number)
+void getfunc(char *opcode, stack_t **stack, unsigned int line_number)
 {
         unsigned int i;
 /*	instruction_t *x = malloc(sizeof(instruction_t)); */
 	instruction_t monty_instructions[] = {
                 {"nop", nop},
+                {"push", push},
+                {"pall", pall},
+                {"pint", pint},
                 {"\0", NULL}
         };
 /*	if (x == NULL)
@@ -32,14 +35,13 @@ stack_t *getfunc(char *opcode, stack_t **stack, unsigned int line_number)
                         exit(EXIT_FAILURE);
                 }
         }
-	return (*stack);
 }
 int main(int argc, char **argv)
 {
         FILE *file;
         char *theFile = argv[1];
         /*      unsigned int i; */
-        unsigned int lineCount = 1;
+        int lineCount = 1;
         /*tokenizer variables*/
         char opFind[5] = {0};
 	unsigned int numFind;
@@ -61,18 +63,16 @@ int main(int argc, char **argv)
 	/*tokenizer*/
 	while(fscanf(file, "%s %u", opFind , &numFind) != EOF)
 	{
-		newLine = getc(file);
-		while (newLine != EOF)
-		{
-			if (newLine == '\n')
-			{
-				lineCount += lineCount;
-			}
-			newLine = getc(file);
-		}
+
+                for (newLine = getc(file); newLine != EOF; newLine = getc(file));
+	        {
+		        if (newLine == '\n')
+			lineCount++;
+	        }
 		printf("number of lines: %d\n", lineCount);
 		printf("%s %d\n", opFind, numFind);
 	} /*mystery bracket*/
+        exttokens.numFind = numFind;
 	getfunc(opFind, &stack, lineCount);
 /*	free(file);*/
 /*	free(opFind);*/
