@@ -38,6 +38,23 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ * struct tokens - opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
+ *
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO Holberton project
+ */
+typedef struct exttokens
+{
+      int numFind;
+      char opFind;
+} global_t;
+extern global_t exttokens;
+global_t exttokens;
+
+
 stack_t *getfunc(char *opcode, stack_t **stack, unsigned int line_number);
 void nop(stack_t **stack, unsigned int line_number);
 
