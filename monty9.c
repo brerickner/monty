@@ -41,10 +41,10 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 			return;
 		}
 	}
-	fprintf(stderr, "L<line_number>: unknown instruction <opcode>\n");
-	free_stack(stack);
+	fprintf(stderr, "L%u unknown instruction %s\n", line_number, opFind);
+/*	free_stack(stack);*/
 	/* printf("made it past freeing stack when match not found\n"); */
-	free(exttokens.file);
+/*	free(exttokens.file); */
 	exit(EXIT_FAILURE);
 }
 /**
@@ -89,7 +89,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		/* printf("%s %d\n", opFind, numFind); */
-		printf("line count is: %d\n", lineCount);
+/*		printf("line count is: %d\n", lineCount);*/
 		getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
 /*free(opFind);*/
