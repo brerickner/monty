@@ -11,8 +11,8 @@ stack_t *temp = *stack;
 
 while (*stack != NULL)
 {
-    temp = (*stack)->next;
-    free(stack);
-    (*stack) = temp;
+temp = (*stack)->next;
+free(stack);
+(*stack) = temp;
 }
 }

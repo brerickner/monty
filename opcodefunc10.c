@@ -12,7 +12,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *addNode;
 	(void)line_number;
 
-	printf("got to push\n");
+	/* printf("got to push\n"); */
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
@@ -36,7 +36,7 @@ void push(stack_t **stack, unsigned int line_number)
 * newnode = malloc(sizeof(stack_t));
 *
 *	if (newnode == NULL)
-*		 printf("malloc failed in push\n"); 
+*		 printf("malloc failed in push\n");
 *		return;
 *
 *	lastnode = (*stack);
@@ -81,7 +81,6 @@ void pall(stack_t **stack, unsigned int line_number)
 	stack_t *temp;
 	(void)line_number;
 
-	printf("got to pall \n");
 	/* printf("got to pall"); */
 	if (*(stack) == NULL)
 	{
@@ -89,7 +88,7 @@ void pall(stack_t **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 	temp = *stack;
-	while(temp != NULL)
+	while (temp != NULL)
 	{
 		printf("%d\n", temp->n);
 		temp = temp->next;
