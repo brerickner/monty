@@ -91,7 +91,6 @@ int main(int argc, char **argv)
 			push(&stack, lineCount);
 			continue;
 		}
-		/* printf("%s %d\n", opFind, numFind); */
 /*		printf("line count is: %d\n", lineCount);*/
 		getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
