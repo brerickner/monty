@@ -12,7 +12,7 @@ void push(stack_t **stack, unsigned int line_number)
 	stack_t *lastnode;
 	(void)line_number;
 
-	printf("got to push\n");
+/*	printf("got to push\n"); */
 
 	newnode = malloc(sizeof(stack_t));
 
@@ -61,7 +61,7 @@ void pall(stack_t **stack, unsigned int line_number)
 	for (temp = (*stack)->next; temp != NULL; temp = temp->next)
 		;
 	for (temp = (*stack); temp != NULL; temp = temp->prev)
-		printf("%d", temp->n);
+		printf("%d\n", temp->n);
 }
 
 /**
