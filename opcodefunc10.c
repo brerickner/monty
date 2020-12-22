@@ -10,7 +10,6 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node;
 	stack_t *addNode;
-	(void)line_number;
 
 	/* printf("got to push\n"); */
 	new_node = malloc(sizeof(stack_t));
@@ -25,6 +24,7 @@ void push(stack_t **stack, unsigned int line_number)
 	if (!exttokens.numFind)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		free_stack(*stack);
 		exit(EXIT_FAILURE);
 	}
 	new_node->n = exttokens.numFind;
