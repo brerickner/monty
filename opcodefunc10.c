@@ -8,7 +8,7 @@
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new_node;
+	stack_t *new_node = NULL;
 	stack_t *addNode;
 
 	/* printf("got to push\n"); */
@@ -21,9 +21,10 @@ void push(stack_t **stack, unsigned int line_number)
 
 	new_node->next = NULL;
 	new_node->prev = NULL;
-	if (!exttokens.numFind)
+	if (!(exttokens.numFind))
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		fclose(exttokens.file);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
@@ -114,6 +115,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	else
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		fclose(exttokens.file);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}
@@ -133,6 +135,7 @@ void pop(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr,
 			"L%u: can't pop an empty stack\n", line_number);
+		fclose(exttokens.file);
 		free_stack(stack);
 		exit(EXIT_FAILURE);
 	}

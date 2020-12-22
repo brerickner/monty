@@ -42,6 +42,7 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 		}
 	}
 	free_stack(stack);
+	fclose(exttokens.file);
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opFind);
 /*	free_stack(stack);*/
 	/* printf("made it past freeing stack when match not found\n"); */
@@ -80,6 +81,7 @@ int main(int argc, char **argv)
 		lineCount++;
 	fclose(file);
 	file = fopen(theFile, "r");
+	exttokens.file = file;
 	while (fscanf(file, "%s", opFind) != EOF)
 	{
 		if (strcmp(opFind, "push") == 0)
