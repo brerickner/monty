@@ -20,7 +20,7 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 	/* instruction_t *x = malloc(sizeof(instruction_t)); */
 	instruction_t monty_instructions[] = {
 		{"pint", pint},
-/*		{"push", push}, */
+		/*{"push", push},*/
 		{"nop", nop},
 		{"pall", pall},
 		{NULL, NULL}
@@ -41,7 +41,7 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 			return;
 		}
 	}
-	fprintf(stderr, "L%u unknown instruction %s\n", line_number, opFind);
+	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opFind);
 /*	free_stack(stack);*/
 	/* printf("made it past freeing stack when match not found\n"); */
 /*	free(exttokens.file); */
@@ -93,7 +93,7 @@ int main(int argc, char **argv)
 		getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
 /*free(opFind);*/
+/*	free_stack(stack); */
 	fclose(file);
 	return (EXIT_SUCCESS);
-
 }
