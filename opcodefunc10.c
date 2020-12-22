@@ -109,12 +109,43 @@ void pall(stack_t **stack, unsigned int line_number)
  */
 void pint(stack_t **stack, unsigned int line_number)
 {
-	if ((*stack)->next == NULL)
+	if ((*stack) != NULL)
+		printf("%d\n", (*stack)->n);
+	else
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*stack)->n);
+}
+/**
+ * pop - stack_t **stack, unsigned int line_number
+ * @stack: pointer to head of doubly linked list
+ * @line_number: line number
+ * description: function that removes top element of the stack
+ * Return: void
+ */
+void pop(stack_t **stack, unsigned int line_number)
+{
+	stack_t *popNode = NULL;
+
+	if (!(*stack))
+	{
+		fprintf(stderr,
+			"L%u: can't pop an empty stack\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	popNode = (*stack)->next->next;
+	free((*stack)->next);
+
+	if (popNode)
+	{
+		popNode->prev = (*stack);
+		if (*stack)
+			(*stack)->prev = NULL;
+	}
+	popNode->next = NULL;
+	popNode->prev = NULL;
+	free(popNode);
 }
 /**
  * nop - stack_t **stack, unsigned int line_number
