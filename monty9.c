@@ -92,6 +92,6 @@ int main(int argc, char **argv)
 /*free(opFind);*/
 	fclose(file);
 /*        printf("end of program\n");*/
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 
 }
