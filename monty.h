@@ -42,13 +42,14 @@ typedef struct instruction_s
  * struct exttokens - opcode and its function
  * @numFind: argument
  * @opFind: function to handle the opcode
- *
+ * @file: the file to read from
  * Description: tokens extracted from file
  */
 typedef struct exttokens
 {
 	int numFind;
 	char opFind;
+	FILE *file;
 } global_t;
 extern global_t exttokens;
 global_t exttokens;
