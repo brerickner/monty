@@ -22,6 +22,11 @@ void push(stack_t **stack, unsigned int line_number)
 
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	if (!exttokens.numFind)
+	{
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	new_node->n = exttokens.numFind;
 
 	addNode = new_node;
