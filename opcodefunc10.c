@@ -85,13 +85,13 @@ void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
 	(void)line_number;
-
-	/* printf("got to pall"); */
-	if (*(stack) == NULL)
-	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
-	}
+/*
+ *	if (*(stack) == NULL)
+ *	{
+ *		fprintf(stderr, "Error: malloc failed\n");
+ *		exit(EXIT_FAILURE);
+ *		}
+ */
 	temp = *stack;
 	while (temp != NULL)
 	{
