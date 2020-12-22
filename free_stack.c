@@ -5,16 +5,17 @@
 * Return: void
 */
 
-void free_stack(stack_t *stack)
+void free_stack(stack_t **stack)
 {
 
-if (!stack)
+if (!*stack)
 	return;
 
-while (stack != NULL)
+while (stack != NULL && (*stack)->next != NULL)
 {
-stack = stack->next;
-free(stack);
-stack = NULL;
+*stack = (*stack)->next;
+free((*stack)->prev);
 }
+free(*stack);
+*stack = NULL;
 }

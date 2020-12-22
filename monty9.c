@@ -41,6 +41,7 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 			return;
 		}
 	}
+	free_stack(stack);
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opFind);
 /*	free_stack(stack);*/
 	/* printf("made it past freeing stack when match not found\n"); */
@@ -93,7 +94,7 @@ int main(int argc, char **argv)
 		getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
 /*free(opFind);*/
-/*	free_stack(stack); */
+	free_stack(&stack);
 	fclose(file);
 	return (EXIT_SUCCESS);
 }
