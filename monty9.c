@@ -69,13 +69,16 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	file = fopen(theFile, "r");
-/*if unable to open file*/
 	if (file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", theFile);
 		exit(EXIT_FAILURE);
 	}
 	exttokens.file = file;
+	while (EOF != (fscanf(file, "%*[^\n]"), fscanf(file, "%*c")))
+		lineCount++;
+	fclose(file);
+	file = fopen(theFile, "r");
 	while (fscanf(file, "%s", opFind) != EOF)
 	{
 		if (strcmp(opFind, "push") == 0)
@@ -86,12 +89,11 @@ int main(int argc, char **argv)
 			continue;
 		}
 		/* printf("%s %d\n", opFind, numFind); */
+		printf("line count is: %d\n", lineCount);
 		getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
-/*      free(file); */
 /*free(opFind);*/
 	fclose(file);
-/*        printf("end of program\n");*/
 	return (EXIT_SUCCESS);
 
 }
