@@ -90,8 +90,7 @@ int main(int argc, char **argv)
 		}
 		getline(&line, &buf, file);
 		free(line), line = NULL;
-		getfunc(opFind, &stack, lineCount);
-		lineCount++;
+		getfunc(opFind, &stack, lineCount), lineCount++;
 	} /*mystery bracket*/
 	free_stack(&stack);
 	fclose(file);
