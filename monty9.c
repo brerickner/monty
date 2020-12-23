@@ -24,7 +24,7 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 		{"nop", nop},
 /*		{"add", add},*/
 		{"pop", pop},
-/*		{"swap", swap},*/
+		{"swap", swap},
 /*		{"sub", sub},*/
 /*		{"mul", mul},*/
 		{"pall", pall},
