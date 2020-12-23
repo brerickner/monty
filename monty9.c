@@ -86,9 +86,8 @@ int main(int argc, char **argv)
 			numFind = fscanf(file, "%d", &exttokens.numFind);
 			if (numFind != 1)
 			{
-				lineCount++;
 				fprintf(stderr, "L%u: usage: push integer\n"
-					, lineCount);
+					, lineCount + 1);
 				fclose(exttokens.file);
 				free_stack(&stack);
 				exit(EXIT_FAILURE);
