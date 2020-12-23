@@ -64,6 +64,7 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 int main(int argc, char **argv)
 {
 	FILE *file = NULL;
+	char *theFile = argv[1];
 	unsigned int lineCount = 1, numFind;
 	char opFind[5] = {0};
 	stack_t *stack = NULL;
@@ -73,10 +74,10 @@ int main(int argc, char **argv)
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file = fopen(argv[1], "r");
+	file = fopen(theFile, "r");
 	if (file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", theFile);
 		exit(EXIT_FAILURE);
 	}
 	exttokens.file = file;
