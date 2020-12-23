@@ -16,12 +16,17 @@
  */
 void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 {
-	unsigned int i;
+	unsigned int i = NULL;
 	/* instruction_t *x = malloc(sizeof(instruction_t)); */
 	instruction_t monty_instructions[] = {
 		{"pint", pint},
 		/*{"push", push},*/
 		{"nop", nop},
+		{"add", add},
+		{"pop", pop},
+		{"swap", swap},
+		{"sub", sub},
+		{"mul", mul},
 		{"pall", pall},
 		{NULL, NULL}
 	};
@@ -58,43 +63,43 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
  */
 int main(int argc, char **argv)
 {
-	FILE *file;
-	char *theFile = argv[1];
+	FILE *file = NULL;
 	unsigned int lineCount = 1, numFind;
 	char opFind[5] = {0};
 	stack_t *stack = NULL;
 
-/*if no file given or more than one arg given */
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	file = fopen(theFile, "r");
+	file = fopen(argv[1], "r");
 	if (file == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", theFile);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	exttokens.file = file;
-	while (EOF != (fscanf(file, "%*[^\n]"), fscanf(file, "%*c")))
-		lineCount++;
-	fclose(file);
-	file = fopen(theFile, "r");
 	exttokens.file = file;
 	while (fscanf(file, "%s", opFind) != EOF)
 	{
 		if (strcmp(opFind, "push") == 0)
 		{
-			fscanf(file, "%u", &numFind);
-			exttokens.numFind = numFind;
+			numFind = fscanf(file, "%d", &exttokens.numFind);
+			if (numFind == 0)
+			{
+				fprintf(stderr, "L%u: usage: push integer\n"
+					, lineCount);
+				fclose(exttokens.file);
+				free_stack(&stack);
+				exit(EXIT_FAILURE);
+			}
 			push(&stack, lineCount);
+			lineCount++;
 			continue;
 		}
-/*		printf("line count is: %d\n", lineCount);*/
 		getfunc(opFind, &stack, lineCount);
+		lineCount++;
 	} /*mystery bracket*/
-/*free(opFind);*/
 	free_stack(&stack);
 	fclose(file);
 	return (EXIT_SUCCESS);

@@ -10,6 +10,7 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = NULL;
 	stack_t *addNode;
+	(void)line_number;
 
 	/* printf("got to push\n"); */
 	new_node = malloc(sizeof(stack_t));
@@ -21,13 +22,6 @@ void push(stack_t **stack, unsigned int line_number)
 
 	new_node->next = NULL;
 	new_node->prev = NULL;
-	if (!(exttokens.numFind))
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		fclose(exttokens.file);
-		free_stack(stack);
-		exit(EXIT_FAILURE);
-	}
 	new_node->n = exttokens.numFind;
 
 	addNode = new_node;
@@ -129,28 +123,23 @@ void pint(stack_t **stack, unsigned int line_number)
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
-	stack_t *popNode = NULL;
+	stack_t *popNode = *stack;
 
-	if (!(*stack))
+	if (*stack)
+	{
+		*stack = (*stack)->next;
+		free(popNode);
+	}
+	if (*stack)
+		(*stack)->prev = NULL;
+
+	else
 	{
 		fprintf(stderr,
-			"L%u: can't pop an empty stack\n", line_number);
-		fclose(exttokens.file);
-		free_stack(stack);
+		"L%u: can't pop an empty stack\n", line_number);
+/*		fclose(exttokens.file);*/
 		exit(EXIT_FAILURE);
 	}
-	popNode = (*stack)->next->next;
-	free((*stack)->next);
-
-	if (popNode)
-	{
-		popNode->prev = (*stack);
-		if (*stack)
-			(*stack)->prev = NULL;
-	}
-	popNode->next = NULL;
-	popNode->prev = NULL;
-	free(popNode);
 }
 /**
  * nop - stack_t **stack, unsigned int line_number
