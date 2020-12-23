@@ -65,12 +65,13 @@ int main(int argc, char **argv)
 	FILE *file = NULL;
 	unsigned int lineCount = 1, numFind;
 	char opFind[5] = {0};
+	char *line = NULL;
+	size_t buf = 0;
 	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "USAGE: monty file\n"), exit(EXIT_FAILURE);
 	}
 	file = fopen(argv[1], "r");
 	if (file == NULL)
@@ -88,15 +89,14 @@ int main(int argc, char **argv)
 			{
 				fprintf(stderr, "L%u: usage: push integer\n"
 					, lineCount + 1);
-				fclose(exttokens.file);
-				free_stack(&stack);
+				fclose(exttokens.file), free_stack(&stack);
 				exit(EXIT_FAILURE);
 			}
-			push(&stack, lineCount);
-			lineCount++;
+			push(&stack, lineCount), lineCount++;
 			continue;
 		}
 		lineCount++;
+		getline(&line, &buf, file);
 		getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
 	free_stack(&stack);
