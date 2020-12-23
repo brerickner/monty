@@ -95,10 +95,8 @@ int main(int argc, char **argv)
 			push(&stack, lineCount), lineCount++;
 			continue;
 		}
-		lineCount++;
-		getline(&line, &buf, file);
-		free(line);
-		line = NULL;
+		lineCount++, getline(&line, &buf, file);
+		free(line), line = NULL;
 		getfunc(opFind, &stack, lineCount);
 	} /*mystery bracket*/
 	free_stack(&stack);
