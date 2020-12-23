@@ -84,7 +84,7 @@ int main(int argc, char **argv)
 		if (strcmp(opFind, "push") == 0)
 		{
 			numFind = fscanf(file, "%d", &exttokens.numFind);
-			if (numFind == 0)
+			if (numFind != 1)
 			{
 				fprintf(stderr, "L%u: usage: push integer\n"
 					, lineCount);
