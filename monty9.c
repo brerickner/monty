@@ -20,13 +20,12 @@ void getfunc(char *opFind, stack_t **stack, unsigned int line_number)
 	/* instruction_t *x = malloc(sizeof(instruction_t)); */
 	instruction_t monty_instructions[] = {
 		{"pint", pint},
-		/*{"push", push},*/
 		{"nop", nop},
-/*		{"add", add},*/
+		{"add", add},
 		{"pop", pop},
 		{"swap", swap},
-/*		{"sub", sub},*/
-/*		{"mul", mul},*/
+		{"sub", sub},
+		{"mul", mul},
 		{"pall", pall},
 		{NULL, NULL}
 	};
