@@ -80,6 +80,5 @@ Description of files contained within this repo:
 
 ## Authors 👩‍💻 👩‍💻
   
-**Bre Rickner**
-**Valerie Nierenberg**
+**Bre Rickner** 🤜 🤛 **Valerie Nierenberg**
  
